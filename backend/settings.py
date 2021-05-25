@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-2c(4q+a_a29fysglt54t9v^g%oom&)0yos*r_j+0fd9pd%8=21
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['demo3.rushikeshkoli.com', 'demo4.rushikeshkoli.com']
 
 # Application definition
 
@@ -69,9 +68,11 @@ TEMPLATES = [
         },
     },
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://demo3.rushikeshkoli.com'
+]
 WSGI_APPLICATION = 'backend.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -80,12 +81,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'USER': 'postgres',
-        'PASSWORD': 'admin#123',
+        'PASSWORD': os.environ['rds_pwd'],
         'NAME': 'mydb',
-        'HOST': 'fyle-postgres.cltegpaqlc5j.ap-south-1.rds.amazonaws.com'
+        'HOST': 'fyle-postgres.cltegpaqlc5j.ap-south-1.rds.amazonaws.com',
+        'ATOMIC_REQUESTS': True
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -105,7 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -118,7 +118,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
